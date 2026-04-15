@@ -2,7 +2,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronRight, ChevronLeft, ArrowRight, Lightbulb, Home, X, ChevronDown, ChevronUp } from "lucide-react";
 
-
 const screens = [
   "homepage", "context/reality", "context/persona", "context/scattered",
   "context/confusion", "transformation/intro", "transformation/mapping-csn",
@@ -40,16 +39,14 @@ const PAGE_INFO = {
   "homepage": { title: "Semantic Interoperability", content: "...is the ability to interpret the intended meaning of data across systems. \n\n While sytems successfully can exchange data, they may still fail to understand each other.\n\n  True understanding requires shared standards, aligned definitions, and a common context.\n\n" },
   "context/reality": {
     title: "Swedish Case Context - GIF",
-    
     content: "GIF is an authority-led initiative currently under development, aimed at improving data exchange between Swedish public authority systems.\n\n A remaining key challenge is ensuring that the exchanged data is comprehensible.\n\nThat is where the semantics comes in."
   },
-  
   "context/persona": { title: "More Personas", content: "In the future you will meet Paul and Sarah." },
   "context/scattered": { title: "What am I looking at?", content: "Essentially what case workers for financial aid applications are facing today. \n\nThere have been a few complaints, which are being met by the development of GIF." },
-"context/confusion": {
-  title: "More on Scattered Data",
-  content: 'Read more in the <a href="https://skr.se/download/18.8d6fd9e198bb80313a2e2da/1755696159916/Informationsspecifikation-ekonomiskt-bistand.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">official documentation</a>.'
-},
+  "context/confusion": {
+    title: "More on Scattered Data",
+    content: 'Read more in the <a href="https://skr.se/download/18.8d6fd9e198bb80313a2e2da/1755696159916/Informationsspecifikation-ekonomiskt-bistand.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">official documentation</a>.'
+  },
   "transformation/intro": { title: "More on The Transformation Process", content: "Placeholder — content will be updated." },
   "transformation/mapping-csn": { title: "Mapping Logic — FK", content: "Placeholder — content will be updated." },
   "transformation/mapping-af": { title: "Mapping Logic — AF", content: "Placeholder — content will be updated." },
@@ -310,9 +307,9 @@ function StatCard({ value, label, dot, delay, tooltip, tooltipWidth = "w-64" }) 
       </div>
       <AnimatePresence>
         {hovered && (
-          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 4 }} transition={{ duration: 0.15 }}
-            className={`absolute top-full mt-2 left-0 bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-xl z-50 ${tooltipWidth}`}>
+          <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.15 }}
+            className={`absolute bottom-full mb-2 left-0 bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-xl z-50 ${tooltipWidth}`}>
             {tooltip}
           </motion.div>
         )}
@@ -372,9 +369,7 @@ function Homepage({ onNext, onJumpToCategory }) {
       tooltip: (
         <div className="space-y-3">
           <div>
-
-
-            <div className="text-xs text-gray-400">Board of Student Finance</div></div>
+              <div className="text-xs text-gray-400">Board of Student Finance</div></div>
           <div className="w-full h-px bg-gray-100" />
           <div><div className="text-xs font-semibold text-gray-800 mb-0.5">Arbetsförmedlingen (AF)</div><div className="text-xs text-gray-400">Public Employment Service</div></div>
           <div className="w-full h-px bg-gray-100" />
@@ -479,9 +474,7 @@ function Homepage({ onNext, onJumpToCategory }) {
         className="flex gap-4 mt-10 relative z-10">
         {stats.map((s) => <StatCard key={s.label} {...s} />)}
       </motion.div>
-
-
-    </motion.div>
+      </motion.div>
   );
 }
 
@@ -494,11 +487,8 @@ function Reality() {
       <DG style={{ width: 270, height: 270, top: -70, left: -70 }} />
       <DPu style={{ width: 170, height: 170, bottom: 50, right: -50 }} />
       <DT style={{ width: 110, height: 110, top: "50%", right: 50 }} />
-
-     
-        <div className="max-w-5xl space-y-12 relative z-10">
-  
-  {/* Swedish flag */}
+      <div className="max-w-5xl space-y-12 relative z-10">
+     {/* Swedish flag */}
   <div className="absolute top-0 right-0 z-20 w-14 h-14 flex items-center justify-center">
     <img
       src="/swe.png"
@@ -506,8 +496,7 @@ function Reality() {
       className="w-full h-full object-contain drop-shadow-md"
     />
   </div>
-
-        <div>
+         <div>
           <h1 className="text-6xl tracking-tight leading-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
             The Current State
           </h1>
@@ -516,7 +505,7 @@ function Reality() {
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-5">
+         <div className="grid grid-cols-3 gap-5">
           {[
             {
               tag: "CSN",
@@ -532,7 +521,6 @@ function Reality() {
               body: "Provides data on employment status, job-seeking activity, and labour market participation.",
               delay: 0.3
             },
-
             {
               tag: "FK",
               image: "/forsakring.png",
@@ -540,9 +528,7 @@ function Reality() {
               body: "Provides data on social insurance benefits including activity support payments.",
               delay: 0.4
             }
-
-
-          ].map((c) => (
+            ].map((c) => (
             <motion.div
               key={c.tag}
               initial={{ y: 16, opacity: 0 }}
@@ -867,7 +853,7 @@ function MappingFK() {
       <DPu style={{ width: 190, height: 190, top: -55, right: -45 }} />
       <DP style={{ width: 130, height: 130, bottom: -35, left: -35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/forsakring.png" alt="FK" className="w-full h-full object-contain" />
@@ -883,7 +869,6 @@ function MappingFK() {
           </h1>
           <p className="text-sm text-gray-500 mt-2 max-w-2xl">
             Collaborates with the Swedish Public Employment Service to retrieve all relevant data.
-
           </p>
         </div>
 
@@ -905,7 +890,7 @@ function MappingFK() {
           <p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
             <span className="text-red-500 mt-0.5">⚠</span>
             <span>
-              Data from this source does not reveal Jane’s occupation and can only be inferred implicitly.
+              Data from this source does not reveal Jane's occupation and can only be inferred implicitly.
             </span>
           </p>
         </motion.div>
@@ -1087,7 +1072,7 @@ function MappingAF() {
       <DB style={{ width: 190, height: 190, top: -55, right: -45 }} />
       <DO style={{ width: 130, height: 130, bottom: -35, left: -35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/arbetsform.png" alt="AF" className="w-full h-full object-contain" />
@@ -1103,7 +1088,6 @@ function MappingAF() {
           </h1>
           <p className="text-sm text-gray-500 mt-2 max-w-2xl">
             Collaborates with the Social Insurance Agency to retrieve all relevant data.
-
           </p>
         </div>
 
@@ -1302,7 +1286,7 @@ function MappingCSN() {
       <TealBlob style={{ width: 130, height: 130, bottom: -35, left: -35, opacity: 0.45 }} />
       <BlueBlob style={{ width: 80, height: 80, top: "50%", left: 40, opacity: 0.35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/csn.png" alt="CSN" className="w-full h-full object-contain" />
@@ -1336,16 +1320,12 @@ function MappingCSN() {
             <strong>study loan of 1,245 SEK per week</strong> at{" "}
             <strong>50% study pace</strong> during <strong>week 35 to week 51, 2025</strong>.
           </p>
-
-
           <p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
             <span className="text-green-500 mt-0.5">●</span>
             <span>
               Jane's study support information is comprehensive and self-explanatory.
             </span>
           </p>
-
-
         </motion.div>
 
         {/* Compact summary */}
@@ -1763,4 +1743,3 @@ function Value() {
     </motion.div>
   );
 }
-          
