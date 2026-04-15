@@ -1706,7 +1706,7 @@ function TestConnection() {
               Terminal Output
             </div>
             <pre className="text-sm text-gray-800 whitespace-pre-wrap break-words font-mono">
-              {output || "This will take some time..."}
+              {output || "Prepare for something groundbreaking..."}
             </pre>
           </div>
         </div>
