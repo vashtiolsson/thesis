@@ -75,7 +75,7 @@ export default function App() {
           animate={{ width: `${((currentScreen + 1) / screens.length) * 100}%` }} transition={{ duration: 0.3 }} />
       </div>
       {!isHomepage && <CategoryNav currentScreenId={screens[currentScreen]} onJumpToCategory={jumpToCategory} onGoHome={goHome} />}
-      <div className="flex-1 overflow-hidden relative">
+      <div className="flex-1 overflow-hidden relative" style={{ zoom: 0.82 }}>
         <AnimatePresence mode="wait">
           {screens[currentScreen] === "homepage" && <Homepage key="hp" onNext={nextScreen} onJumpToCategory={jumpToCategory} />}
           {screens[currentScreen] === "context/reality" && <Reality key="cr" />}
@@ -853,7 +853,7 @@ function MappingFK() {
       <DPu style={{ width: 190, height: 190, top: -55, right: -45 }} />
       <DP style={{ width: 130, height: 130, bottom: -35, left: -35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/forsakring.png" alt="FK" className="w-full h-full object-contain" />
@@ -1072,7 +1072,7 @@ function MappingAF() {
       <DB style={{ width: 190, height: 190, top: -55, right: -45 }} />
       <DO style={{ width: 130, height: 130, bottom: -35, left: -35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/arbetsform.png" alt="AF" className="w-full h-full object-contain" />
@@ -1286,7 +1286,7 @@ function MappingCSN() {
       <TealBlob style={{ width: 130, height: 130, bottom: -35, left: -35, opacity: 0.45 }} />
       <BlueBlob style={{ width: 80, height: 80, top: "50%", left: 40, opacity: 0.35 }} />
 
-      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10" style={{ zoom: 0.88 }}>
+      <div className="max-w-5xl w-full space-y-5 py-6 relative z-10">
         <div className="relative">
           <div className="absolute top-0 right-0 w-16 h-16 rounded-2xl border-2 border-gray-200 bg-white shadow-sm flex items-center justify-center p-2">
             <img src="/csn.png" alt="CSN" className="w-full h-full object-contain" />
