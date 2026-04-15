@@ -45,7 +45,7 @@ const PAGE_INFO = {
   "context/scattered": { title: "What am I looking at?", content: "Essentially what case workers for financial aid applications are facing today. \n\nThere have been a few complaints, which are being met by the development of GIF." },
   "context/confusion": {
     title: "More on Scattered Data",
-    content: 'Read more in the <a href="https://skr.se/download/18.8d6fd9e198bb80313a2e2da/1755696159916/Informationsspecifikation-ekonomiskt-bistand.pdf" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">official documentation</a>.'
+    content: 'Read more in on SKR:s website.'
   },
   "transformation/intro": { title: "More on The Transformation Process", content: "Placeholder — content will be updated." },
   "transformation/mapping-csn": { title: "Mapping Logic — FK", content: "Placeholder — content will be updated." },
@@ -132,25 +132,25 @@ function TransformationPipelinePanel({ onClose }) {
   const pipelineSteps = [
     {
       n: "1", label: "User Query",
-      desc: "Citizen asks a question in plain language",
+      desc: "Query is sent on-click",
       symbol: "?",
       symbolBg: "bg-blue-100", symbolText: "text-blue-700", symbolBorder: "border-blue-300",
     },
     {
       n: "2", label: "Query Analysis",
-      desc: "Classifies intent and extracts semantic concepts",
+      desc: "Analysis of intent leads to determined concepts",
       symbol: "{ }",
       symbolBg: "bg-indigo-100", symbolText: "text-indigo-700", symbolBorder: "border-indigo-300",
     },
     {
       n: "3", label: "Concept Mapping",
-      desc: "Links concepts to data fields and organisations via mapping tables",
+      desc: "Concepts are mapped to tables and fields in source data for expected matches",
       symbol: "~",
       symbolBg: "bg-amber-100", symbolText: "text-amber-700", symbolBorder: "border-amber-300",
     },
     {
       n: "4", label: "Data Retrieval Loop",
-      desc: "Queries each authority iteratively until all concepts are filled",
+      desc: "Iterative looping against source data until all concepts are matched or exhausted",
       symbol: "↻",
       symbolBg: "bg-pink-100", symbolText: "text-pink-700", symbolBorder: "border-pink-300",
     },
@@ -162,13 +162,13 @@ function TransformationPipelinePanel({ onClose }) {
     },
     {
       n: "6", label: "Completion Condition",
-      desc: "Process stops when all required concepts have been filled",
+      desc: "Process stops when all required concepts have been matched",
       symbol: "✓",
       symbolBg: "bg-teal-100", symbolText: "text-teal-700", symbolBorder: "border-teal-300",
     },
     {
       n: "7", label: "Output / Meaning",
-      desc: "Values are combined and presented as a clear, human-readable answer",
+      desc: "Values are combined and presented as a clear response on the interface",
       symbol: "»",
       symbolBg: "bg-green-100", symbolText: "text-green-700", symbolBorder: "border-green-300",
     },
@@ -368,13 +368,14 @@ function Homepage({ onNext, onJumpToCategory }) {
       value: "3", label: "Authorities", dot: "#4ADE80", delay: 0.35, tooltipWidth: "w-64",
       tooltip: (
         <div className="space-y-3">
-          <div>
-              <div className="text-xs text-gray-400">Board of Student Finance</div></div>
+           <div className="w-full h-px bg-gray-100" />
+          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Board of Student Finance</div><div className="text-xs text-gray-400">Centrala studiestödsnämnden</div></div>
+          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Swedish Public Employment Service</div><div className="text-xs text-gray-400">Arbetsförmedlingen</div></div>
           <div className="w-full h-px bg-gray-100" />
-          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">Arbetsförmedlingen (AF)</div><div className="text-xs text-gray-400">Public Employment Service</div></div>
-          <div className="w-full h-px bg-gray-100" />
-          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">Försäkringskassan (FK)</div><div className="text-xs text-gray-400">Swedish Social Insurance Agency</div></div>
+          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Social Insurance Agency</div><div className="text-xs text-gray-400">Försäkringskassan</div></div>
+          <div className="space-y-3"></div>
         </div>
+        
       ),
     },
     {
@@ -382,17 +383,14 @@ function Homepage({ onNext, onJumpToCategory }) {
       tooltip: (
         <div className="space-y-3">
           <div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">CSN</div>
             <div className="space-y-1">{["Approved period", "Approved amount"].map((t) => <div key={t} className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-green-400 flex-shrink-0" />{t}</div>)}</div>
           </div>
           <div className="w-full h-px bg-gray-100" />
           <div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">AF</div>
             <div className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-orange-400 flex-shrink-0" />Job seeker status</div>
           </div>
           <div className="w-full h-px bg-gray-100" />
           <div>
-            <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">FK</div>
             <div className="space-y-1">{["Payment record", "Payment detail"].map((t) => <div key={t} className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-purple-400 flex-shrink-0" />{t}</div>)}</div>
           </div>
         </div>
@@ -403,10 +401,10 @@ function Homepage({ onNext, onJumpToCategory }) {
       tooltip: (
         <div className="space-y-2">
           {[
-            { c: "Support type", d: "Grant, loan, or activity support" },
-            { c: "Time period", d: "Approved start and end dates" },
-            { c: "Amount", d: "Weekly or total payment value" },
-            { c: "Occupation", d: "Study or job-seeking level (%)" },
+            { c: "Support type", d: "Financial aid in question" },
+            { c: "Time period", d: "Start and end dates" },
+            { c: "Amount", d: "The payment value" },
+            { c: "Occupation", d: "Studying or job-seeking" },
             { c: "Status", d: "Active, completed, or pending" },
             { c: "Source", d: "Which authority provided the data" },
           ].map(({ c, d }) => (
@@ -417,7 +415,7 @@ function Homepage({ onNext, onJumpToCategory }) {
     },
     {
       value: "1", label: "Unified view", dot: "#A78BFA", delay: 0.56, tooltipWidth: "w-56",
-      tooltip: <div className="text-xs text-gray-500 leading-relaxed">A single consolidated overview combining past and present financial aid data from all three authorities — in plain, actionable language.</div>,
+      tooltip: <div className="text-xs text-gray-500 leading-relaxed">A consolidated overview combining financial aid data from all three authorities.</div>,
     },
   ];
   return (
@@ -784,10 +782,10 @@ function Confusion() {
 
 function TransformationIntro() {
   const steps = [
-    { label: "Query Understanding", sub: "Interpret user intent and extract key concepts", bg: "bg-blue-100",  border: "border-blue-500",  text: "text-blue-700",  delay: 0.15 },
-    { label: "Concept Mapping",     sub: "Align concepts with data fields and sources",    bg: "bg-amber-100", border: "border-amber-500", text: "text-amber-800", delay: 0.4  },
-    { label: "Data Retrieval",      sub: "Iteratively collect and fill required information", bg: "bg-pink-100",  border: "border-pink-500",  text: "text-pink-700",  delay: 0.65 },
-    { label: "Meaning",             sub: "Deliver consistent, human-readable output",      bg: "bg-green-100", border: "border-green-500", text: "text-green-700", delay: 0.9  },
+    { label: "Query Understanding", sub: "Interpret user intent", bg: "bg-blue-100",  border: "border-blue-500",  text: "text-blue-700",  delay: 0.15 },
+    { label: "Concept Mapping",     sub: "Conceptualize the user context",    bg: "bg-amber-100", border: "border-amber-500", text: "text-amber-800", delay: 0.4  },
+    { label: "Data Retrieval",      sub: "Fetch relevant data from sources", bg: "bg-pink-100",  border: "border-pink-500",  text: "text-pink-700",  delay: 0.65 },
+    { label: "Meaning",             sub: "Present human-readable output",      bg: "bg-green-100", border: "border-green-500", text: "text-green-700", delay: 0.9  },
   ];
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
@@ -797,7 +795,7 @@ function TransformationIntro() {
       <div className="max-w-7xl w-full space-y-14 relative z-10">
         <div className="text-center">
           <h1 className="text-6xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Transformation Process</h1>
-          <p className="text-base text-gray-500 mt-4">As Jane uses the system, several processes occur - translating raw data into meaningful outputs</p>
+          <p className="text-base text-gray-500 mt-4">A simplified pipeline of the events following Jane's actions on the platform.</p>
         </div>
         <div className="flex items-stretch justify-center gap-4">
           {steps.map((s, i) => (
@@ -828,7 +826,7 @@ function MappingFK() {
   const summaryItems = [
     { label: "Support", value: "Activity support" },
     { label: "Period", value: "Jan–Jun 2025" },
-    { label: "Amount", value: "43,680 SEK net" },
+    { label: "Amount", value: "43,680 SEK" },
     { label: "Status", value: "Completed" },
     { label: "Source", value: "Social Insurance Agency" },
     { label: "Occupation", value: "Not provided", muted: true },
