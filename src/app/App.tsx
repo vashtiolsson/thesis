@@ -1632,42 +1632,42 @@ function TestConnection() {
   const [loading, setLoading] = useState(false);
 
   const runTest = async () => {
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const res = await fetch("http://127.0.0.1:8002/api/test-pipeline", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          category: "income",
-        }),
-      });
+  try {
+    const res = await fetch("https://backendprototype-prce.onrender.com/api/test-pipeline", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        category: "income",
+      }),
+    });
 
-      if (!res.ok) {
-        throw new Error(`Request failed with status ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      if (typeof data === "string") {
-        setOutput(data);
-      } else if (data?.output) {
-        setOutput(data.output);
-      } else {
-        setOutput(JSON.stringify(data, null, 2));
-      }
-    } catch (error) {
-      setOutput(
-        error instanceof Error
-          ? `API not live yet: ${error.message}`
-          : "API not live yet."
-      );
-    } finally {
-      setLoading(false);
+    if (!res.ok) {
+      throw new Error(`Request failed with status ${res.status}`);
     }
-  };
+
+    const data = await res.json();
+
+    if (typeof data === "string") {
+      setOutput(data);
+    } else if (data?.output) {
+      setOutput(JSON.stringify(data.output, null, 2));
+    } else {
+      setOutput(JSON.stringify(data, null, 2));
+    }
+  } catch (error) {
+    setOutput(
+      error instanceof Error
+        ? `hej: ${error.message}`
+        : "då."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <motion.div
@@ -1696,9 +1696,9 @@ function TestConnection() {
           <button
             onClick={runTest}
             disabled={loading}
-            className="px-6 py-3 rounded-xl bg-red-500 text-white hover:bg-gray-800 disabled:opacity-50 transition-all text-sm"
+            className="px-6 py-3 rounded-xl bg-black/100 text-white hover:bg-blue-800 disabled:opacity-50 transition-all text-sm"
           >
-            {loading ? "Running..." : "Not activated"}
+            {loading ? "Running..." : "Try me"}
           </button>
 
           <div className="border-2 border-gray-200 rounded-2xl bg-gray-50 p-4 min-h-[260px]">
@@ -1706,7 +1706,7 @@ function TestConnection() {
               Terminal Output
             </div>
             <pre className="text-sm text-gray-800 whitespace-pre-wrap break-words font-mono">
-              {output || "API is not live yet."}
+              {output || "This will take some time..."}
             </pre>
           </div>
         </div>
