@@ -764,14 +764,19 @@ function Persona() {
             alt="Jane"
             className="w-44 h-44 rounded-full object-cover flex-shrink-0"
           />
-          <div className="flex-1 space-y-6">
-            <p className="text-2xl text-gray-800 leading-relaxed">
-              Jane is currently a part-time student and previously received activity support as a job seeker.
-            </p>
-            <p className="text-lg text-gray-500 leading-relaxed">
-              She wants to understand her current situation before applying for financial aid. She visits a digital platform to understand her current state — but the data is scattered and confusing.
-            </p>
-          </div>
+         <div className="flex-1 space-y-6">
+  <p className="text-2xl text-gray-800 leading-relaxed">
+    Jane has applied for a student grant for part-time studies.
+  </p>
+
+  <p className="text-lg text-gray-500 leading-relaxed">
+    She previously received activity support as a job seeker.
+  </p>
+
+  <p className="text-lg text-gray-500 leading-relaxed">
+    She visits the citizen portal to get an overview of her finances — but the information is scattered and confusing.
+  </p>
+</div>
         </div>
       </div>
     </motion.div>
