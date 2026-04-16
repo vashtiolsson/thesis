@@ -72,10 +72,12 @@ const PAGE_INFO = {
   "context/persona": { title: "The E-service", content: ["As users manage their own data, clear information becomes crucial.",
     "Intuitive design and visual guidance facilitate informed decision-making."]
    },
-  "context/scattered": { title: "What am I looking at?", content: "Essentially what case workers for financial aid applications are facing today. \n\nThere have been a few complaints, which are being met by the development of GIF." },
+  "context/scattered": { title: "Fragmented Data", content: "With the current solution, case workers must interpret siloed data to provide assistance. \n\n Following complaints regarding understandability, areas for improvement include providing clearer presentation of information."},
   "context/confusion": {
-    title: "More on Scattered Data",
-    content: 'Read more in on SKR:s website.'
+    title: "Ontologies and Mapping",
+    content:["Ontologies structure the meaning of data, formalizing real-world concepts into explicit representations.",
+      "Semantic mapping links data elements to these defined representations.",
+    "Together, they enable consistent interpretation across systems."]
   },
   "transformation/intro": { title: "More on The Transformation Process", content: "Placeholder — content will be updated." },
   "transformation/mapping-csn": { title: "Mapping Logic — FK", content: "Null values  — content will be updated." },
@@ -846,10 +848,10 @@ function ScatteredView() {
             className="text-5xl tracking-tight mb-1"
             style={{ fontFamily: "Space Grotesk, sans-serif" }}
           >
-            Scattered View
+            The Scattered View
           </h1>
           <p className="text-sm text-gray-400">
-            Raw data as it exists across three separate authority systems
+            Jane's data today across the three authority systems
           </p>
         </div>
 
@@ -975,8 +977,8 @@ function Confusion() {
       ))}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
         className="relative z-10 text-center space-y-4 max-w-2xl">
-        <h1 className="text-7xl tracking-tight text-gray-900" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Too Complex</h1>
-        <p className="text-base text-gray-500">Technical codes and numbers doesn't help Jane understand her situation</p>
+        <h1 className="text-7xl tracking-tight text-gray-900" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Reduce Ambiguity</h1>
+        <p className="text-base text-gray-500">How can we turn technical terminology into understandable information?</p>
       </motion.div>
     </motion.div>
   );
