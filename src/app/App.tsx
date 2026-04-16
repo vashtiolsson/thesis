@@ -14,7 +14,7 @@ const CATEGORIES = [
     id: "context",
     label: "Context",
     screens: [
-      { id: "context/reality", label: "The Current Reality" },
+      { id: "context/reality", label: "Decentralized Systems" },
       { id: "context/persona", label: "Meet Jane" },
       { id: "context/scattered", label: "Scattered View" },
       { id: "context/confusion", label: "Too Complex" },
@@ -59,9 +59,16 @@ const PAGE_INFO = {
     ]
   },
   "context/reality": {
-    title: "Swedish Case Context - GIF",
-    content: "GIF is an authority-led initiative currently under development, aimed at improving data exchange between Swedish public authority systems.\n\n A remaining key challenge is ensuring that the exchanged data is comprehensible.\n\nThat is where the semantics comes in."
-  },
+    title: "Swedish Context",
+    content: [
+      "Current developments aim to digitize the application process for financial aid.",
+      "By 2027, a new service portal will make structured data accessible for citizens.",
+      "As users manage their own applications, clear information becomes crucial."
+    ]
+  }
+    ,
+
+
   "context/persona": { title: "More Personas", content: "In the future you will meet Paul and Sarah." },
   "context/scattered": { title: "What am I looking at?", content: "Essentially what case workers for financial aid applications are facing today. \n\nThere have been a few complaints, which are being met by the development of GIF." },
   "context/confusion": {
@@ -686,10 +693,10 @@ function Reality() {
   </div>
          <div>
           <h1 className="text-6xl tracking-tight leading-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            The Current State
+            Decentralized Systems
           </h1>
-          <p className="text-lg text-gray-500 mt-4 max-w-3xl">
-            In Sweden, financial aid decisions are based on data from multiple public authorities. Each maintains separate systems with different data structures and terminology.
+          <p className="text-lg text-gray-500 mt-4 max-w-4xl">
+            In Sweden, financial aid decisions rely on data from multiple public authority systems. Because each system is structured differently, the information can be fragmented and hard to interpret.
           </p>
         </div>
 
@@ -699,21 +706,21 @@ function Reality() {
               tag: "CSN",
               image: "/csn.png",
               title: "Board of Student Finance",
-              body: "Provides data on student funding, including grants and loans for eligible students.",
+              body: "Data on student funding, grants and loans.",
               delay: 0.2
             },
             {
               tag: "AF",
               image: "/arbetsform.png",
               title: "Public Employment Service",
-              body: "Provides data on employment status, job-seeking activity, and labour market participation.",
+              body: "Data on employment status and job-seeking activity.",
               delay: 0.3
             },
             {
               tag: "FK",
               image: "/forsakring.png",
               title: "Social Insurance Agency",
-              body: "Provides data on social insurance benefits including activity support payments.",
+              body: "Data on payments, social benefits and support.",
               delay: 0.4
             }
             ].map((c) => (
