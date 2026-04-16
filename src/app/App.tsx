@@ -62,14 +62,16 @@ const PAGE_INFO = {
     title: "Swedish Context",
     content: [
       "Current developments aim to digitize the application process for financial aid.",
-      "By 2027, a new service portal will make structured data accessible for citizens.",
-      "As users manage their own applications, clear information becomes crucial."
+      "Efforts focus on cleaning and re-structuring data.",
+      "By 2027, a new e-service portal will allow citizens to make applications independently.",
     ]
   }
     ,
 
 
-  "context/persona": { title: "More Personas", content: "In the future you will meet Paul and Sarah." },
+  "context/persona": { title: "The E-service", content: ["As users manage their own data, clear information becomes crucial.",
+    "Intuitive design and visual guidance facilitate informed decision-making."]
+   },
   "context/scattered": { title: "What am I looking at?", content: "Essentially what case workers for financial aid applications are facing today. \n\nThere have been a few complaints, which are being met by the development of GIF." },
   "context/confusion": {
     title: "More on Scattered Data",
