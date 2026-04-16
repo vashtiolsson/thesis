@@ -393,7 +393,7 @@ function Homepage({ onNext, onJumpToCategory }) {
       value: "8", label: "Data Tables", dot: "#FB923C", delay: 0.42, tooltipWidth: "w-80",
       tooltip: (
         <div className="space-y-5">
-          <div className="text-xs font-semibold text-gray-900">Concepts are mapped to tables that contain relevant data</div>
+          <div className="text-xs font-semibold text-gray-900">Public authority systems hold tables containing relevant data</div>
           <div className="space-y-4">
             {[
               {
@@ -520,7 +520,7 @@ function Homepage({ onNext, onJumpToCategory }) {
         </motion.h1>
         <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.28 }}
           className="text-base text-gray-500 leading-relaxed">
-          Explore how complex public authority data can transform into a coherent context
+          Explore how fragmented public authority data can transform into a unified context
         </motion.p>
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.38 }}
           className="flex items-center gap-5 flex-wrap justify-center">
@@ -798,7 +798,7 @@ function TransformationIntro() {
   const steps = [
     { label: "User Action", sub: "Jane selects a topic in the interface", bg: "bg-purple-100", border: "border-purple-500", text: "text-purple-700", delay: 0.1 },
     { label: "Query Analysis", sub: "A query is triggered and analyzed by type", bg: "bg-blue-100", border: "border-blue-500", text: "text-blue-700", delay: 0.28 },
-    { label: "Concept Filling", sub: "Concepts are prepared to be matched", bg: "bg-amber-100", border: "border-amber-500", text: "text-amber-800", delay: 0.46 },
+    { label: "Concept Matching", sub: "Concepts are prepared to be matched", bg: "bg-amber-100", border: "border-amber-500", text: "text-amber-800", delay: 0.46 },
     { label: "Source Search", sub: "Relevant sources are searched iteratively", bg: "bg-pink-100", border: "border-pink-500", text: "text-pink-700", delay: 0.64 },
     { label: "Readable Response", sub: "The result is interpreted and presented", bg: "bg-green-100", border: "border-green-500", text: "text-green-700", delay: 0.82 },
   ];
@@ -1186,7 +1186,7 @@ function UnifiedView() {
               <button onClick={() => setPrevExpanded((e) => !e)}
                 className="w-full text-left bg-white border-[3px] border-gray-200 rounded-2xl p-6 hover:border-gray-300 transition-all">
 
-                <div className="flex items-start justify-between mb-5">
+                <div className="flex items-start justify-between mb-1">
                   <div className="flex items-center gap-3">
                     {/* Subtle grey circle */}
                     <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
@@ -1215,7 +1215,7 @@ function UnifiedView() {
                   {prevExpanded && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.22 }} className="overflow-hidden">
-                      <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-5">
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-4 mb-15">
                         <div>
                           <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Support type</div>
                           <div className="text-xl font-semibold text-gray-800">Activity support</div>
@@ -1234,9 +1234,9 @@ function UnifiedView() {
                         </div>
                       </div>
                       <div>
-                        <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Net received</div>
+                        <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Total received</div>
                         <div className="text-4xl tracking-tight font-light text-gray-900">29,120 SEK</div>
-                        <div className="text-xs text-gray-400 mt-1">36,400 gross · 4 months</div>
+                        <div className="text-xs text-gray-400 mt-1">Monthly payments · 4 months</div>
                       </div>
                     </motion.div>
                   )}
