@@ -11,7 +11,9 @@ const screens = [
 
 const CATEGORIES = [
   {
-    id: "context", label: "Context", screens: [
+    id: "context",
+    label: "Context",
+    screens: [
       { id: "context/reality", label: "The Current Reality" },
       { id: "context/persona", label: "Meet Jane" },
       { id: "context/scattered", label: "Scattered View" },
@@ -19,7 +21,9 @@ const CATEGORIES = [
     ]
   },
   {
-    id: "transformation", label: "Transformation", screens: [
+    id: "transformation",
+    label: "Transformation",
+    screens: [
       { id: "transformation/intro", label: "The Transformation Process" },
       { id: "transformation/mapping-csn", label: "Mapping Logic — Example 1" },
       { id: "transformation/mapping-af", label: "Mapping Logic — Example 2" },
@@ -27,16 +31,33 @@ const CATEGORIES = [
     ]
   },
   {
-    id: "unified", label: "Unified View", screens: [
+    id: "unified",
+    label: "Unified View",
+    screens: [
       { id: "unified/overview", label: "Unified View" },
       { id: "unified/value", label: "Why This Matters" },
-        { id: "unified/test", label: "Work in Progress" },
+    ]
+  },
+  {
+    id: "backend",
+    label: "Backend",
+    screens: [
+      { id: "unified/test", label: "Backend" },
     ]
   },
 ];
 
 const PAGE_INFO = {
-  "homepage": { title: "Semantic Interoperability", content: "...is the ability to interpret the intended meaning of data across systems. \n\n While sytems successfully can exchange data, they may still fail to understand each other.\n\n  True understanding requires shared standards, aligned definitions, and a common context.\n\n" },
+  "homepage": {
+    title: "Semantic Interoperability",
+    content: [
+      
+  "Systems can successfully exchange data and still fail to make it understandable to end users.",
+  "This is where semantic integration matters.",
+  "Shared definitions, common context, and clear presentation enable human understanding."
+
+    ]
+  },
   "context/reality": {
     title: "Swedish Case Context - GIF",
     content: "GIF is an authority-led initiative currently under development, aimed at improving data exchange between Swedish public authority systems.\n\n A remaining key challenge is ensuring that the exchanged data is comprehensible.\n\nThat is where the semantics comes in."
@@ -48,7 +69,7 @@ const PAGE_INFO = {
     content: 'Read more in on SKR:s website.'
   },
   "transformation/intro": { title: "More on The Transformation Process", content: "Placeholder — content will be updated." },
-  "transformation/mapping-csn": { title: "Mapping Logic — FK", content: "Placeholder — content will be updated." },
+  "transformation/mapping-csn": { title: "Mapping Logic — FK", content: "Null values  — content will be updated." },
   "transformation/mapping-af": { title: "Mapping Logic — AF", content: "Placeholder — content will be updated." },
   "transformation/mapping-fk": { title: "Mapping Logic - CSN", content: "Placeholder — content will be updated." },
   "unified/overview": { title: "Unified View", content: "Placeholder — content will be updated." },
@@ -89,6 +110,7 @@ export default function App() {
           {screens[currentScreen] === "unified/overview" && <UnifiedView key="uo" />}
           {screens[currentScreen] === "unified/value" && <Value key="uv" />}
           {screens[currentScreen] === "unified/test" && <TestConnection key="ut" />}
+          
         </AnimatePresence>
       </div>
       <div className="flex-shrink-0 border-t-2 border-gray-200 px-8 py-4 bg-[#F8F8F6]">
@@ -245,7 +267,13 @@ function PageInfoBadge({ screenId }) {
                       <X className="w-3.5 h-3.5" strokeWidth={2} />
                     </button>
                   </div>
-                  <p className="text-xs text-gray-500 leading-relaxed">{info.content}</p>
+                  <div className="space-y-3 text-xs text-gray-500 leading-relaxed">
+  {(Array.isArray(info.content) ? info.content : [info.content]).map((paragraph, i) => (
+    <p key={i} className="whitespace-pre-line">
+      {paragraph}
+    </p>
+  ))}
+</div>
                 </div>
               )}
             </motion.div>
@@ -359,64 +387,217 @@ function MappingRow({ raw, concept, meaning, delay = 0, isEmpty = false }) {
 
 function Homepage({ onNext, onJumpToCategory }) {
   const flowSteps = [
-    { id: "context", label: "Context" },
-    { id: "transformation", label: "Transformation" },
-    { id: "unified", label: "Unified View" },
-  ];
+  { id: "context", label: "Context" },
+  { id: "transformation", label: "Transformation" },
+  { id: "unified", label: "Unified View" },
+  { id: "backend", label: "Backend" },
+];
   const stats = [
     {
-      value: "3", label: "Authorities", dot: "#4ADE80", delay: 0.35, tooltipWidth: "w-64",
+      value: "6", label: "Concepts", dot: "#2DD4BF", delay: 0.49, tooltipWidth: "w-64",
       tooltip: (
-        <div className="space-y-3">
-           <div className="w-full h-px bg-gray-100" />
-          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Board of Student Finance</div><div className="text-xs text-gray-400">Centrala studiestödsnämnden</div></div>
-          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Swedish Public Employment Service</div><div className="text-xs text-gray-400">Arbetsförmedlingen</div></div>
-          <div className="w-full h-px bg-gray-100" />
-          <div><div className="text-xs font-semibold text-gray-800 mb-0.5">The Social Insurance Agency</div><div className="text-xs text-gray-400">Försäkringskassan</div></div>
-          <div className="space-y-3"></div>
-        </div>
+  <div className="space-y-2">
+    
+    {/* Title */}
+    <div className="text-xs font-semibold text-gray-900">
+      Concepts structure the real-world context into categories
         
-      ),
+    </div>
+
+    {/* Divider */}
+    <div className="w-full h-px bg-gray-100" />
+
+    {/* Items */}
+    <div className="space-y-2">
+      {[
+        { c: "Support type", d: "Contains data about financial aid" },
+        { c: "Time period", d: "Start and end dates" },
+        { c: "Amount", d: "Monetary values" },
+        { c: "Occupation", d: "Studying or job-seeking" },
+        { c: "Status", d: "Current state of an application" },
+        { c: "Source", d: "The authority that provided the data" },
+      ].map(({ c, d }) => (
+        <div key={c} className="flex items-start gap-2">
+          
+          {/* Dot */}
+          <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mt-1.5 flex-shrink-0" />
+          
+          {/* Text */}
+          <div>
+            <div className="text-xs font-medium text-gray-800">
+              {c}
+            </div>
+            <div className="text-xs text-gray-400 leading-snug">
+              {d}
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+),
     },
     {
-      value: "5", label: "Data tables", dot: "#FB923C", delay: 0.42, tooltipWidth: "w-72",
+      value: "5", label: "Data Tables", dot: "#FB923C", delay: 0.42, tooltipWidth: "w-72",
       tooltip: (
-        <div className="space-y-3">
+  <div className="space-y-5">
+
+    {/* Section 1 */}
+
+      <div className="space-y-3">
+  
+  {/* Title */}
+  <div className="text-xs font-semibold text-gray-900">
+    Concepts are mapped to data tables that contain relevant data
+  </div>
+
+  {/* Section label */}
+  <div className="text-[10px] uppercase tracking-wider text-gray-400">
+    Board of Student Finance
+  </div>
+
+  {/* Items */}
+  <div className="space-y-1">
+    {["Approved Period", "Approved Amount", "Study Grant Case"].map((t) => (
+      <div key={t} className="flex items-center gap-2 text-xs text-gray-700">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0" />
+        {t}
+      </div>
+    ))}
+  </div>
+
+</div>
+
+    {/* Section 2 */}
+    <div>
+      <div className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">
+        Public Employment Service
+      </div>
+      <div className="flex items-center gap-2 text-xs text-gray-700">
+        <span className="w-1.5 h-1.5 rounded-full bg-orange-400 flex-shrink-0" />
+        Job Seeker Status
+      </div>
+    </div>
+
+
+
+
+  
+
+  {/* Section 3 */}
+  <div>
+    <div className="text-[10px] uppercase tracking-wider text-gray-400 mb-1">
+      Social Insurance Agency
+    </div>
+
+    <div className="space-y-1">
+      {["Payment record", "Payment detail"].map((t) => (
+        <div key={t} className="flex items-center gap-2 text-xs text-gray-700">
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 flex-shrink-0" />
+          {t}
+        </div>
+      ))}
+    </div>
+  </div>
+
+</div>
+),
+    },
+      {
+
+  value: "3",
+  label: "Data Sources",
+  dot: "#60A5FA",
+  delay: 0.35,
+  tooltipWidth: "w-64",
+  tooltip: (
+    <div className="space-y-3">
+
+      {/* Rubric */}
+      <div className="text-xs font-semibold text-gray-900">
+        Public authority systems hold the data
+      </div>
+
+      {/* Divider */}
+      <div className="w-full h-px bg-gray-100" />
+
+      {/* Sources */}
+      <div className="space-y-3">
+
+        <div className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
           <div>
-            <div className="space-y-1">{["Approved period", "Approved amount"].map((t) => <div key={t} className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-green-400 flex-shrink-0" />{t}</div>)}</div>
-          </div>
-          <div className="w-full h-px bg-gray-100" />
-          <div>
-            <div className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-orange-400 flex-shrink-0" />Job seeker status</div>
-          </div>
-          <div className="w-full h-px bg-gray-100" />
-          <div>
-            <div className="space-y-1">{["Payment record", "Payment detail"].map((t) => <div key={t} className="flex items-center gap-2 text-xs text-gray-700"><span className="w-1 h-1 rounded-full bg-purple-400 flex-shrink-0" />{t}</div>)}</div>
+            <div className="text-xs font-semibold text-gray-800">
+              The Board of Student Finance
+            </div>
+            <div className="text-xs text-gray-400">
+              Centrala studiestödsnämnden
+            </div>
           </div>
         </div>
-      ),
-    },
-    {
-      value: "6", label: "Concepts mapped", dot: "#2DD4BF", delay: 0.49, tooltipWidth: "w-64",
-      tooltip: (
-        <div className="space-y-2">
-          {[
-            { c: "Support type", d: "Financial aid in question" },
-            { c: "Time period", d: "Start and end dates" },
-            { c: "Amount", d: "The payment value" },
-            { c: "Occupation", d: "Studying or job-seeking" },
-            { c: "Status", d: "Active, completed, or pending" },
-            { c: "Source", d: "Which authority provided the data" },
-          ].map(({ c, d }) => (
-            <div key={c}><div className="text-xs font-semibold text-gray-800">{c}</div><div className="text-xs text-gray-400 leading-snug">{d}</div></div>
-          ))}
+
+        <div className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+          <div>
+            <div className="text-xs font-semibold text-gray-800">
+              The Swedish Public Employment Service
+            </div>
+            <div className="text-xs text-gray-400">
+              Arbetsförmedlingen
+            </div>
+          </div>
         </div>
-      ),
-    },
+
+        <div className="flex items-start gap-3">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+          <div>
+            <div className="text-xs font-semibold text-gray-800">
+              The Social Insurance Agency
+            </div>
+            <div className="text-xs text-gray-400">
+              Försäkringskassan
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  ),
+},
     {
-      value: "1", label: "Unified view", dot: "#A78BFA", delay: 0.56, tooltipWidth: "w-56",
-      tooltip: <div className="text-xs text-gray-500 leading-relaxed">A consolidated overview combining financial aid data from all three authorities.</div>,
-    },
+  value: "1",
+  label: "Unified view",
+  dot: "#A78BFA",
+  delay: 0.56,
+  tooltipWidth: "w-56",
+  tooltip: (
+    <div className="space-y-2">
+
+      {/* Rubric */}
+      <div className="text-xs font-semibold text-gray-900">
+        The data is presented in an interface
+      </div>
+
+      {/* Divider */}
+      <div className="w-full h-px bg-gray-100" />
+
+      {/* Content with dot */}
+      <div className="flex items-start gap-2">
+        <span
+          className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0"
+          style={{ background: "#A78BFA" }}
+        />
+        <p className="text-xs text-gray-500 leading-relaxed">
+          The unified view combines data from the three authority systems and visualizes it in a clear format
+         
+        </p>
+      </div>
+
+    </div>
+  ),
+},
   ];
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -436,19 +617,28 @@ function Homepage({ onNext, onJumpToCategory }) {
         <PageInfoBadge screenId="homepage" />
       </motion.div>
 
-      <div className="flex flex-col items-center text-center space-y-8 relative z-10 max-w-2xl">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border-2 border-gray-200 text-xs text-gray-500 bg-white">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-          Digital prototype · Semantic Mapping
-        </motion.div>
+     <div className="flex flex-col items-center text-center space-y-8 relative z-10 max-w-3xl">
+  
+ <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.1 }}
+  className="inline-flex items-center gap-2 px-3 py-2 rounded-full border-2 border-gray-200 bg-white"
+>
+  <img src="/uva.png" alt="UVA" className="h-5 object-contain" />
+
+  <div className="w-px h-5 bg-gray-300" />
+
+  <img src="/adc.png" alt="ADC" className="h-6 object-contain" />
+</motion.div>
+
         <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.18 }}
           className="text-6xl tracking-tight leading-[1.08]" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
           Harmonizing income data for financial aid
         </motion.h1>
         <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.28 }}
           className="text-base text-gray-500 leading-relaxed">
-          Explore how fragmented public income data can transform into a single, unified view.
+          Explore how complex public authority data can transform into a coherent context.
         </motion.p>
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.38 }}
           className="flex items-center gap-5 flex-wrap justify-center">
