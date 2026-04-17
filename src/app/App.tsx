@@ -22,10 +22,10 @@ const CATEGORIES = [
   {
     id: "transformation", label: "Transformation",
     screens: [
-      { id: "transformation/intro", label: "The Transformation Process" },
-      { id: "transformation/mapping-csn", label: "Mapping Logic: Example 1" },
-      { id: "transformation/mapping-af", label: "Mapping Logic: Example 2" },
-      { id: "transformation/mapping-fk", label: "Mapping Logic: Example 3" },
+      { id: "transformation/intro", label: "Transformation Process" },
+      { id: "transformation/mapping-csn", label: "Example 1" },
+      { id: "transformation/mapping-af", label: "Example 2" },
+      { id: "transformation/mapping-fk", label: "Example 3" },
     ]
   },
   {
@@ -66,7 +66,7 @@ const PAGE_INFO = {
   },
   "transformation/intro": { title: "The Logic", content: ["Each authority's data structure is analyzed and mapped individually, allowing the system to transform and unify the data through a backend pipeline."] },
   "transformation/mapping-csn": { title: "Dataset Analysis", content: ["A decision-based structure is used, providing information on eligibility and participation.", "Attributes such as 'status' must be inferred from temporal fields.", "The absence of monetary values requires integration with data from the Social Insurance Agency to provide a complete view."] },
-  "transformation/mapping-af": { title: "Dataset Analysis", content: ["Similarly to The Public Employment Service, 'status' is not explicitly stored, but can accurately be inferred from decision dates.", "In contrast, determining 'occupation', revealing Jane's job-seeking status, can only be done by integrating data from The Public Employment Service."] },
+  "transformation/mapping-af": { title: "Dataset Analysis", content: ["Similarly to the Public Employment Service, 'status' is not explicitly stored, but can accurately be inferred from decision dates.", "In contrast, determining 'occupation', revealing Jane's job-seeking status, can only be done by integrating data from the Public Employment Service."] },
   "transformation/mapping-fk": { title: "Dataset Analysis", content: ["The data for the concepts 'time period' and 'amount' is initially presented in weeks, requiring conversion into a standardized format."] },
   "unified/overview": { title: "Unified View", content: ["This is a conceptual illustration.", "Visual details of the upcoming Swedish e-service have not yet been disclosed."] },
   "unified/value": { title: "Wider Context", content: ["EU's digital strategy emphasizes accessible, human-centered digital services.", "By 2030, the goal is for all key public services to be fully available online.", "In alignment, Sweden is steadily progressing - enabling interoperability step by step."] },
@@ -75,15 +75,29 @@ const PAGE_INFO = {
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState(0);
-  const nextScreen = () => { if (currentScreen < screens.length - 1) setCurrentScreen(currentScreen + 1); };
-  const prevScreen = () => { if (currentScreen > 0) setCurrentScreen(currentScreen - 1); };
+
+  const nextScreen = () => {
+    if (currentScreen < screens.length - 1) setCurrentScreen(currentScreen + 1);
+  };
+
+  const prevScreen = () => {
+    if (currentScreen > 0) setCurrentScreen(currentScreen - 1);
+  };
+
   const goHome = () => setCurrentScreen(0);
+
   const jumpToCategory = (categoryId) => {
     const cat = CATEGORIES.find((c) => c.id === categoryId);
     if (!cat) return;
     const idx = screens.indexOf(cat.screens[0].id);
     if (idx !== -1) setCurrentScreen(idx);
   };
+
+  const jumpToScreen = (screenId) => {
+    const idx = screens.indexOf(screenId);
+    if (idx !== -1) setCurrentScreen(idx);
+  };
+
   const isHomepage = screens[currentScreen] === "homepage";
 
   return (
@@ -96,7 +110,12 @@ export default function App() {
       {/* Nav — minimal badge-only bar on homepage, full nav on inner pages */}
       {isHomepage
         ? <HomepageNav />
-        : <CategoryNav currentScreenId={screens[currentScreen]} onJumpToCategory={jumpToCategory} onGoHome={goHome} />
+        : <CategoryNav
+  currentScreenId={screens[currentScreen]}
+  onJumpToCategory={jumpToCategory}
+  onJumpToScreen={jumpToScreen}
+  onGoHome={goHome}
+/>
       }
 
       <div className="flex-1 overflow-hidden relative" style={{ zoom: 0.60 }}>
@@ -326,41 +345,101 @@ function HomepageNav() {
 
 // ── Category nav ──────────────────────────────────────────────────────────────
 
-function CategoryNav({ currentScreenId, onJumpToCategory, onGoHome }) {
-  const activeCategory = CATEGORIES.find((cat) => cat.screens.some((s) => s.id === currentScreenId));
-  const activeSubcategory = activeCategory?.screens.find((s) => s.id === currentScreenId);
+function CategoryNav({ currentScreenId, onJumpToCategory, onJumpToScreen, onGoHome }) {
+  const activeCategory = CATEGORIES.find((cat) =>
+    cat.screens.some((s) => s.id === currentScreenId)
+  );
+
+  const [openCategory, setOpenCategory] = useState(activeCategory?.id || null);
+
+  const toggleCategory = (categoryId) => {
+    setOpenCategory((prev) => (prev === categoryId ? null : categoryId));
+  };
+
   return (
     <div className="flex-shrink-0 border-b-2 border-gray-200 bg-[#F8F8F6] px-8 pt-2.5 pb-3">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={onGoHome} className="flex items-center justify-center w-7 h-7 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-all mr-1">
+            <button
+              onClick={onGoHome}
+              className="flex items-center justify-center w-7 h-7 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-all mr-1"
+            >
               <Home className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
+
             <div className="w-px h-4 bg-gray-300" />
-            {CATEGORIES.map((cat, i) => (
-              <span key={cat.id} className="flex items-center gap-4">
-                <button onClick={() => onJumpToCategory(cat.id)}
-                  className={`text-sm transition-colors ${cat.id === activeCategory?.id ? "text-black font-semibold" : "text-gray-400 hover:text-gray-600"}`}>
-                  {cat.label}
-                </button>
-                {i < CATEGORIES.length - 1 && <ArrowRight className="w-3 h-3 text-gray-300 flex-shrink-0" strokeWidth={1.5} />}
-              </span>
-            ))}
+
+            {CATEGORIES.map((cat, i) => {
+              const isActive = cat.id === activeCategory?.id;
+
+              return (
+                <span key={cat.id} className="flex items-center gap-4">
+                  <button
+                    onClick={() => {
+                      onJumpToCategory(cat.id);
+                      setOpenCategory(cat.id);
+                    }}
+                    className={`text-sm transition-colors ${
+                      isActive ? "text-black font-semibold" : "text-gray-400 hover:text-gray-600"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+
+                  {i < CATEGORIES.length - 1 && (
+                    <ArrowRight
+                      className="w-3 h-3 text-gray-300 flex-shrink-0"
+                      strokeWidth={1.5}
+                    />
+                  )}
+                </span>
+              );
+            })}
           </div>
+
           <PageInfoBadge screenId={currentScreenId} />
         </div>
-        {activeSubcategory && (
-          <motion.div key={activeSubcategory.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 mt-1">
-            <span className="text-gray-300 text-xs">·</span>
-            <span className="text-xs text-gray-400">{activeSubcategory.label}</span>
-          </motion.div>
-        )}
+
+        <AnimatePresence mode="wait">
+          {openCategory && (
+            <motion.div
+              key={openCategory}
+              initial={{ opacity: 0, y: -2 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -2 }}
+              transition={{ duration: 0.15 }}
+              className="mt-1.5 pl-12 flex items-center flex-wrap gap-x-3 gap-y-1"
+            >
+              {CATEGORIES.find((cat) => cat.id === openCategory)?.screens.map((screen, index, arr) => {
+                const isCurrent = screen.id === currentScreenId;
+
+                return (
+                  <span key={screen.id} className="flex items-center gap-3">
+                    <button
+                      onClick={() => onJumpToScreen(screen.id)}
+                      className={`text-xs transition-colors ${
+                        isCurrent
+                          ? "text-gray-700"
+                          : "text-gray-400 hover:text-gray-600"
+                      }`}
+                    >
+                      {screen.label}
+                    </button>
+
+                    {index < arr.length - 1 && (
+                      <span className="text-gray-300 text-[10px]">·</span>
+                    )}
+                  </span>
+                );
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
 }
-
 // ── Stat card ─────────────────────────────────────────────────────────────────
 
 function StatCard({ value, label, dot, delay, tooltip, tooltipWidth = "w-72" }) {
@@ -523,7 +602,7 @@ function Homepage({ onNext, onJumpToCategory }) {
         </motion.h1>
         <motion.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.28 }}
           className="text-base text-gray-500 leading-relaxed">
-          Explore how fragmented public authority data can transform into a unified context
+          Explore how heterogeneous public authority data can transform into a unified context
         </motion.p>
         <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.38 }}
           className="flex items-center gap-5 flex-wrap justify-center">
@@ -651,8 +730,8 @@ function ScatteredView() {
 
       <div className="max-w-6xl mx-auto space-y-5 relative z-10">
         <div>
-          <h1 className="text-5xl tracking-tight mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Scattered View</h1>
-          <p className="text-sm text-gray-400">Jane's data today across the three authority systems</p>
+          <h1 className="text-5xl tracking-tight mb-1" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Scattered View</h1>
+          <p className="text-sm text-gray-400">Jane's data across the three authority systems</p>
         </div>
 
         {/* 3-column grid — AF, FK, CSN in order */}
@@ -813,7 +892,7 @@ function TransformationIntro() {
         <DT style={{ width: 130, height: 130, bottom: -35, left: -35 }} />
         <div className="max-w-[1500px] w-full space-y-10 relative z-10">
           <div className="text-center">
-            <h1 className="text-6xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Transformation Process</h1>
+            <h1 className="text-6xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Transformation Process</h1>
             <p className="text-base text-gray-500 mt-4">A simplified representation of the events following Jane's actions on the platform</p>
           </div>
           <div className="flex items-stretch justify-center gap-3 w-full">
@@ -884,7 +963,7 @@ function MappingAF() {
             <img src="/arbetsform.png" alt="AF" className="w-full h-full object-contain" />
           </div>
           <div className="text-xs uppercase tracking-wider text-gray-400 mb-1.5">Example 1</div>
-          <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Public Employment Service</h1>
+          <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Public Employment Service</h1>
         </div>
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
@@ -1095,7 +1174,7 @@ function UnifiedView() {
 
           {/* ── Title ── */}
           <div>
-            <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Unified View</h1>
+            <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Unified View</h1>
             <p className="text-sm text-gray-400 mt-1">Jane's financial situation</p>
           </div>
 
