@@ -118,10 +118,18 @@ export default function App() {
 
       <div className="flex-shrink-0 border-t-2 border-gray-200 px-8 py-4 bg-[#F8F8F6]">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <button onClick={prevScreen} disabled={currentScreen === 0}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-gray-200 hover:border-gray-400 disabled:opacity-25 transition-all text-sm">
-            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} /> Back
-          </button>
+          {!isHomepage ? (
+  <button
+    onClick={prevScreen}
+    disabled={currentScreen === 0}
+    className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-gray-200 hover:border-gray-400 disabled:opacity-25 transition-all text-sm"
+  >
+    <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
+    Back
+  </button>
+) : (
+  <div />
+)}
           <div className="text-xs text-gray-300">{currentScreen + 1} / {screens.length}</div>
           <button onClick={nextScreen} disabled={currentScreen === screens.length - 1}
             className="flex items-center gap-2 px-6 py-3 rounded-xl bg-black text-white hover:bg-gray-800 disabled:opacity-25 transition-all text-sm">
