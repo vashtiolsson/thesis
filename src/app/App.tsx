@@ -45,9 +45,9 @@ const PAGE_INFO = {
   "homepage": {
     title: "Semantic Interoperability",
     content: [
-      "Systems can successfully exchange data and still fail to make it understandable to end users.",
+      "Systems can successfully exchange data and still fail to make it comprehensible.",
       "This is where semantic integration matters.",
-      "Shared definitions, common context, and clear presentation enable human understanding."
+      "Shared definitions, a common context, and clear presentation enable human understanding."
     ]
   },
   "context/reality": {
@@ -55,7 +55,7 @@ const PAGE_INFO = {
     content: [
       "Current developments aim to digitize the application process for financial aid.",
       "Efforts focus on cleaning and re-structuring data.",
-      "By 2027, a new e-service portal will allow citizens to make applications independently.",
+      "By 2027, a new e-service portal will allow citizens to make financial aid applications independently.",
     ]
   },
   "context/persona": { title: "The E-service", content: ["As users manage their own data, clear information becomes crucial.", "Intuitive design and visual guidance facilitate informed decision-making."] },
@@ -64,13 +64,13 @@ const PAGE_INFO = {
     title: "Ontologies and Mapping",
     content: ["Ontologies structure the meaning of data, formalizing real-world concepts into explicit representations.", "Semantic mapping links data elements to these defined representations.", "Together they enable consistent interpretation across systems."]
   },
-  "transformation/intro": { title: "The Logic", content: ["Each authority's data structure is mapped individually, allowing the system to transform and unify the data through a backend pipeline."] },
-  "transformation/mapping-csn": { title: "Dataset Analysis", content: ["A decision-based structure is used, providing information on eligibility and participation.", "In contrast to the other datasets, there is only one relevant table for this example.", "Several attributes must be inferred from temporal fields rather than explicitly stated.", "The absence of monetary values requires integration with data from the Social Insurance Agency to provide a complete view."] },
-  "transformation/mapping-af": { title: "Dataset Analysis", content: ["Status is not explicitly stored, but can accurately be inferred from decision dates.", "In contrast, determining occupation can only be done by integrating with data from The Public Employment Service."] },
-  "transformation/mapping-fk": { title: "Dataset Analysis", content: ["The raw data for the concepts time period and amount is initially presented in weeks, requiring conversion into a standardized format."] },
-  "unified/overview": { title: "Unified View", content: ["This is a conceptual illustration.", "Visual details of the upcoming e-service have not yet been disclosed.", "The aim is to enable citizens to access relevant information, simplifying the application process."] },
+  "transformation/intro": { title: "The Logic", content: ["Each authority's data structure is analyzed and mapped individually, allowing the system to transform and unify the data through a backend pipeline."] },
+  "transformation/mapping-csn": { title: "Dataset Analysis", content: ["A decision-based structure is used, providing information on eligibility and participation.", "Attributes such as 'status' must be inferred from temporal fields.", "The absence of monetary values requires integration with data from the Social Insurance Agency to provide a complete view."] },
+  "transformation/mapping-af": { title: "Dataset Analysis", content: ["Similarly to The Public Employment Service, 'status' is not explicitly stored, but can accurately be inferred from decision dates.", "In contrast, determining 'occupation', revealing Jane's job-seeking status, can only be done by integrating data from The Public Employment Service."] },
+  "transformation/mapping-fk": { title: "Dataset Analysis", content: ["The data for the concepts 'time period' and 'amount' is initially presented in weeks, requiring conversion into a standardized format."] },
+  "unified/overview": { title: "Unified View", content: ["This is a conceptual illustration.", "Visual details of the upcoming Swedish e-service have not yet been disclosed."] },
   "unified/value": { title: "Wider Context", content: ["EU's digital strategy emphasizes accessible, human-centered digital services.", "By 2030, the goal is for all key public services to be fully available online.", "In alignment, Sweden is steadily progressing - enabling interoperability step by step."] },
-  "unified/test": { title: "Work in Progress", content: "" }
+  "unified/test": { title: "Work in Progress", content: "To be continued..." }
 };
 
 export default function App() {
@@ -393,7 +393,7 @@ function Homepage({ onNext, onJumpToCategory }) {
       value: "8", label: "Data Tables", dot: "#FB923C", delay: 0.42, tooltipWidth: "w-80",
       tooltip: (
         <div className="space-y-5">
-          <div className="text-xs font-semibold text-gray-900">Public authority systems hold tables containing relevant data</div>
+          <div className="text-xs font-semibold text-gray-900">Data tables contain relevant data</div>
           <div className="space-y-4">
             {[
               {
@@ -402,7 +402,7 @@ function Homepage({ onNext, onJumpToCategory }) {
               },
               {
                 label: "Social Insurance Agency", color: "bg-purple-400",
-                tables: ["Payment Record", "Decision Period Grant Decision", "Decision"]
+                tables: ["Payment Record", "Decision Period", "Decision"]
               },
               {
                 label: "Board of Student Finance", color: "bg-green-400",
@@ -410,7 +410,7 @@ function Homepage({ onNext, onJumpToCategory }) {
               },
             ].map((org) => (
               <div key={org.label}>
-                <div className="text-[10px] uppercase tracking-wider text-gray-400 mb-2">{org.label}</div>
+                <div className="text-[10px] font-semibold text-gray-800 mb-2">{org.label}</div>
                 <div className="space-y-1.5">
                   {org.tables.map((t) => (
                     <div key={t} className="flex items-center gap-2.5 text-xs text-gray-700">
@@ -433,16 +433,16 @@ function Homepage({ onNext, onJumpToCategory }) {
           <div className="w-full h-px bg-gray-100" />
           <div className="space-y-3">
             {[
-              { c: "Support type", d: "Contains data about financial aid" },
+              { c: "Support type", d: "Type of benefit" },
               { c: "Time period", d: "Start and end dates" },
               { c: "Amount", d: "Monetary values" },
               { c: "Occupation", d: "Studying or job-seeking" },
-              { c: "Status", d: "Current state of an application" },
+              { c: "Status", d: "State of application" },
             ].map(({ c, d }) => (
               <div key={c} className="flex items-start gap-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-teal-400 mt-1.5 flex-shrink-0" />
                 <div>
-                  <div className="text-xs font-medium text-gray-800">{c}</div>
+                  <div className="text-xs font-semibold text-gray-800">{c}</div>
                   <div className="text-xs text-gray-400 leading-snug mt-0.5">{d}</div>
                 </div>
               </div>
@@ -455,7 +455,7 @@ function Homepage({ onNext, onJumpToCategory }) {
       value: "3", label: "Data Sources", dot: "#60A5FA", delay: 0.35, tooltipWidth: "w-72",
       tooltip: (
         <div className="space-y-3">
-          <div className="text-xs font-semibold text-gray-900">Public authority systems hold the data</div>
+          <div className="text-xs font-semibold text-gray-800">Public authority systems hold the data</div>
           <div className="w-full h-px bg-gray-100" />
           <div className="space-y-4">
             {[
@@ -484,7 +484,7 @@ function Homepage({ onNext, onJumpToCategory }) {
           <div className="flex items-start gap-3">
             <span className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ background: "#A78BFA" }} />
             <p className="text-xs text-gray-500 leading-relaxed">
-              The unified view combines data from the three authority systems and visualizes it in a clear, accessible format.
+              The unified view combines data from the three authority systems and transforms it into a human-readable format.
             </p>
           </div>
         </div>
@@ -564,7 +564,7 @@ function Reality() {
         <div>
           <h1 className="text-6xl tracking-tight leading-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Decentralized Systems</h1>
           <p className="text-lg text-gray-500 mt-4 max-w-4xl">
-            In Sweden, financial aid decisions rely on data from multiple public authority systems. Because each system is structured differently, the information can be fragmented and hard to interpret.
+            In Sweden, financial aid decisions rely on data from multiple public authority systems. Because each system is structured differently, the information can be fragmented and difficult to interpret.
           </p>
         </div>
         <div className="grid grid-cols-3 gap-5">
@@ -601,7 +601,7 @@ function Persona() {
           <img src="/girl.png" alt="Jane" className="w-44 h-44 rounded-full object-cover flex-shrink-0" />
           <div className="flex-1 space-y-6">
             <p className="text-2xl text-gray-800 leading-relaxed">Jane has applied for a student grant for part-time studies.</p>
-            <p className="text-lg text-gray-500 leading-relaxed">She previously received activity support as a job seeker.</p>
+            <p className="text-lg text-gray-500 leading-relaxed">She previously received activity support as a job-seeker.</p>
             <p className="text-lg text-gray-500 leading-relaxed">She visits the citizen portal to get an overview of her finances — but the information is scattered and confusing.</p>
           </div>
         </div>
@@ -687,7 +687,7 @@ function ScatteredView() {
             ["Net", "29 120"],
           ]} />
 
-          <TableCard title="Decision Period Grant Decision" source="FK" image="/forsakring.png" rows={[
+          <TableCard title="Decision Period" source="FK" image="/forsakring.png" rows={[
             ["Type", "Activity Support"],
             ["Decision", "Approved"],
             ["Start", "2025-09-01"],
@@ -698,7 +698,7 @@ function ScatteredView() {
           ]} />
 
           <TableCard title="Decision" source="FK" image="/forsakring.png" rows={[
-            ["Benefit", "Aktivitetsstöd"],
+            ["Benefit", "Activity support"],
             ["Code", "AS"],
             ["Gross/day", "455 SEK"],
             ["Tax/day", "91 SEK"],
@@ -755,13 +755,13 @@ function Confusion() {
     { text: "What does GRUNDB mean?", x: "12%", y: "8%" },
     { text: "What is GRUNDL?", x: "82%", y: "12%" },
     { text: "Is 978 per week or total?", x: "26%", y: "26%" },
-    { text: "What is week 202617?", x: "75%", y: "36%" },
+    { text: "Is 202617 a date?", x: "75%", y: "36%" },
     { text: "Why two separate amounts?", x: "6%", y: "48%" },
     { text: "What period does this cover?", x: "60%", y: "70%" },
     { text: "Is this active right now?", x: "30%", y: "68%" },
-    { text: "What is AS / DAG?", x: "78%", y: "82%" },
+    { text: "What does AS stand for?", x: "78%", y: "82%" },
     { text: "What is open unemployment?", x: "8%", y: "82%" },
-    { text: "What does 50 mean?", x: "46%", y: "18%" },
+    { text: "What is 50 referring to?", x: "46%", y: "18%" },
   ];
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -796,11 +796,11 @@ function Confusion() {
 function TransformationIntro() {
   const [showPipeline, setShowPipeline] = useState(false);
   const steps = [
-    { label: "User Action", sub: "Jane selects a topic in the interface", bg: "bg-purple-100", border: "border-purple-500", text: "text-purple-700", delay: 0.1 },
+    { label: "User Action", sub: "Jane selects a category in the interface", bg: "bg-purple-100", border: "border-purple-500", text: "text-purple-700", delay: 0.1 },
     { label: "Query Analysis", sub: "A query is triggered and analyzed by type", bg: "bg-blue-100", border: "border-blue-500", text: "text-blue-700", delay: 0.28 },
     { label: "Concept Matching", sub: "Concepts are prepared to be matched", bg: "bg-amber-100", border: "border-amber-500", text: "text-amber-800", delay: 0.46 },
     { label: "Source Search", sub: "Relevant sources are searched iteratively", bg: "bg-pink-100", border: "border-pink-500", text: "text-pink-700", delay: 0.64 },
-    { label: "Readable Response", sub: "The result is interpreted and presented", bg: "bg-green-100", border: "border-green-500", text: "text-green-700", delay: 0.82 },
+    { label: "Readable Response", sub: "The result are interpreted and presented", bg: "bg-green-100", border: "border-green-500", text: "text-green-700", delay: 0.82 },
   ];
   return (
     <>
@@ -886,9 +886,9 @@ function MappingAF() {
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="bg-white border-[3px] border-blue-300 rounded-3xl p-7 shadow-sm">
-          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Result</div>
+          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Interpreted Result</div>
           <p className="text-2xl leading-relaxed text-gray-900 max-w-4xl">
-            Jane was a <strong>full-time job seeker</strong> receiving <strong>activity support</strong> from <strong>September to December 2025</strong>. She is <strong>no longer registered</strong> as a job seeker.
+            Jane was a <strong>full-time job-seeker</strong> receiving <strong>activity support</strong> from <strong>September to December 2025</strong>. She is <strong>no longer registered</strong> as a job-seeker.
           </p>
           <p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
             <NullWarningBadge />
@@ -938,8 +938,8 @@ function MappingFK() {
     { raw: "2025-12-31", concept: "Time period", meaning: "End date December 31, 2025" },
     { isEmpty: true, concept: "Occupation", meaning: "" },
     { raw: "Month", concept: "Amount", meaning: "Payments are monthly based" },
-    { raw: "36 400", concept: "Amount", meaning: "Total gross amount for full period" },
-    { raw: "29 120", concept: "Amount", meaning: "Total net amount for full period" },
+    { raw: "36 400", concept: "Amount", meaning: "Total gross amount for period" },
+    { raw: "29 120", concept: "Amount", meaning: "Total net amount for period" },
     { raw: "2025-12-31", concept: "Status", meaning: "Inactive" },
   ];
 
@@ -959,13 +959,13 @@ function MappingFK() {
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="bg-white border-[3px] border-purple-300 rounded-3xl p-7 shadow-sm">
-          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Result</div>
+          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Intepreted Result</div>
           <p className="text-2xl leading-relaxed text-gray-900 max-w-4xl">
             Jane received <strong>activity support</strong> at <strong>full scope (100%)</strong> from <strong>September – December 2025</strong>, with a total net payment of <strong>29,120 SEK</strong>.
           </p>
           <p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
             <NullWarningBadge />
-            <span>Data from this source does not infer Jane's occupation.</span>
+            <span>Jane's occupation cannot be inferred from this source.</span>
           </p>
         </motion.div>
 
@@ -974,7 +974,7 @@ function MappingFK() {
             <div className="text-xs uppercase tracking-wider text-black font-semibold">Data mapping</div>
             <button onClick={() => setShowDetails((p) => !p)}
               className="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-purple-200 hover:border-purple-400 transition-all text-sm text-purple-700">
-              {showDetails ? "Hide data mapping" : "Show data mapping"}
+              {showDetails ? "Hide" : "View"}
               {showDetails ? <ChevronUp className="w-4 h-4" strokeWidth={1.5} /> : <ChevronDown className="w-4 h-4" strokeWidth={1.5} />}
             </button>
           </div>
@@ -1005,7 +1005,7 @@ function MappingCSN() {
   const visibleRows = [
     { raw: "GRUNDB", concept: "Support Type", meaning: "Study grant" },
     { raw: "GRUNDL", concept: "Support Type", meaning: "Study loan" },
-    { raw: "202617 – 202627", concept: "Time Period", meaning: "2026-04-20 – 2026-07-05" },
+    { raw: "202617 – 202627", concept: "Time Period", meaning: "April 20 - July 5, 2026" },
   ];
   const remainingRows = [
     { raw: "1 699", concept: "Amount", meaning: "1,699 SEK/week (grant + loan)" },
@@ -1032,14 +1032,15 @@ function MappingCSN() {
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
           className="bg-white border-[3px] border-yellow-300 rounded-3xl p-7 shadow-sm">
-          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Result</div>
+          <div className="text-xs uppercase tracking-wider text-black mb-3 font-semibold">Interpreted result</div>
           <p className="text-2xl leading-relaxed text-gray-900 max-w-4xl">
-            Jane has planned payments from <strong>April 20</strong> to <strong>July 5, 2026</strong>, combining a <strong>study grant</strong> and <strong>study loan</strong> totaling <strong>18,689 SEK</strong> at a study pace of <strong>50%</strong>.
-          </p>
-          <p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
-            <span className="text-green-500 mt-0.5">○</span>
-            <span>Jane's study support information is comprehensive and self-explanatory.</span>
-          </p>
+  Jane will receive payments from <strong>April 20</strong> to <strong>July 5, 2026</strong>, consisting of a <strong>study grant</strong> and a <strong>student loan</strong>, totaling <strong>SEK 18,689</strong>, based on a study pace of <strong>50%</strong>.
+</p>
+
+<p className="mt-3 text-sm text-gray-500 max-w-3xl flex items-start gap-2">
+  <span className="text-green-500 mt-0.5">○</span>
+  <span>Jane’s study support information is complete and self-contained.</span>
+</p>
         </motion.div>
 
         <div className="bg-white border-[3px] border-yellow-300 rounded-3xl p-6">
@@ -1146,7 +1147,7 @@ function UnifiedView() {
     className="bg-white border-[3px] border-yellow-300 rounded-2xl p-6">
               <div className="flex items-start justify-between mb-5">
                 <div>
-                  <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Current · CSN</div>
+                  <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Planned</div>
                   <h3 className="text-lg font-semibold">Board of Student Finance</h3>
                 </div>
                 <div className="px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-xs font-semibold border-2 border-yellow-200">
@@ -1234,7 +1235,7 @@ function UnifiedView() {
                         </div>
                       </div>
                       <div>
-                        <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Total received</div>
+                        <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Total net amount</div>
                         <div className="text-4xl tracking-tight font-light text-gray-900">29,120 SEK</div>
                         <div className="text-xs text-gray-400 mt-1">Monthly payments · 4 months</div>
                       </div>
@@ -1262,7 +1263,7 @@ function UnifiedView() {
               </div>
               <div className="text-right">
                 <div className="text-5xl tracking-tight font-light text-gray-900 mb-1">47,809</div>
-                <div className="text-sm text-gray-500 uppercase tracking-wider">SEK Total</div>
+                <div className="text-sm text-gray-500 uppercase tracking-wider">Total Expected</div>
               </div>
             </div>
           </motion.div>
@@ -1375,28 +1376,57 @@ function TestConnection() {
     } finally { setLoading(false); }
   };
   return (
-    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
-      className="size-full flex items-center justify-center px-8 relative overflow-hidden">
-      <DG style={{ width: 220, height: 220, top: -55, right: -45 }} />
-      <DPu style={{ width: 150, height: 150, bottom: -35, left: -35 }} />
-      <div className="max-w-4xl w-full space-y-6 relative z-10">
-        <div>
-          <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Under Development</h1>
-          <p className="text-sm text-gray-500 mt-2">Vashti is currently mapping concepts one by one.</p>
-        </div>
-        <div className="bg-white border-[3px] border-gray-200 rounded-3xl p-6 space-y-5">
-          <button onClick={runTest} disabled={loading}
-            className="px-6 py-3 rounded-xl bg-black text-white hover:bg-blue-800 disabled:opacity-50 transition-all text-sm">
-            {loading ? "Running..." : "Try me"}
-          </button>
-          <div className="border-2 border-gray-200 rounded-2xl bg-gray-50 p-4 min-h-[260px]">
-            <div className="text-xs uppercase tracking-wider text-gray-400 mb-3">Terminal Output</div>
-            <pre className="text-sm text-gray-800 whitespace-pre-wrap break-words font-mono">
-              {output || "Prepare for something groundbreaking..."}
-            </pre>
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    className="size-full flex items-center justify-center px-8 relative overflow-hidden"
+  >
+    <DG style={{ width: 220, height: 220, top: -55, right: -45 }} />
+    <DPu style={{ width: 150, height: 150, bottom: -35, left: -35 }} />
+
+    <div className="max-w-4xl w-full space-y-6 relative z-10">
+      <div>
+        <h1
+          className="text-5xl tracking-tight"
+          style={{ fontFamily: "Space Grotesk, sans-serif" }}
+        >
+          Under Development
+        </h1>
+        <p className="text-sm text-gray-500 mt-2">
+          Vashti is currently mapping concepts one by one.
+        </p>
+      </div>
+
+      <div className="bg-white border-[3px] border-gray-200 rounded-3xl p-6 space-y-5">
+        
+        {/* Single smart button */}
+        <button
+          onClick={() => {
+            if (output) setOutput(""); // clear previous output
+            runTest();
+          }}
+          disabled={loading}
+          className="px-6 py-3 rounded-xl bg-black text-white hover:bg-blue-800 disabled:opacity-50 transition-all text-sm"
+        >
+          {loading
+            ? "Calling API..."
+            : output
+            ? "Try again"
+            : "Run test"}
+        </button>
+
+        {/* Terminal */}
+        <div className="border-2 border-gray-200 rounded-2xl bg-gray-50 p-4 min-h-[260px]">
+          <div className="text-xs uppercase tracking-wider text-gray-400 mb-3">
+            Terminal Output
           </div>
+          <pre className="text-sm text-gray-800 whitespace-pre-wrap break-words font-mono">
+            {output || "Prepare for something groundbreaking..."}
+          </pre>
         </div>
       </div>
-    </motion.div>
-  );
+    </div>
+  </motion.div>
+);
 }
