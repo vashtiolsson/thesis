@@ -507,12 +507,7 @@ function Homepage({ onNext, onJumpToCategory }) {
 
       <div className="flex flex-col items-center text-center space-y-8 relative z-10 max-w-3xl">
         {/* Logo pill */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-          className="inline-flex items-center gap-3 px-5 py-3 rounded-full border-2 border-gray-200 bg-white">
-          <img src="/uva.png" alt="UVA" className="h-8 object-contain" />
-          <div className="w-px h-7 bg-gray-300" />
-          <img src="/adc.png" alt="ADC" className="h-9 object-contain" />
-        </motion.div>
+       
 
         <motion.h1 initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.18 }}
           className="text-6xl tracking-tight leading-[1.08]" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
