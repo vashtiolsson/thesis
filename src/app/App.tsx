@@ -344,17 +344,10 @@ function HomepageNav() {
 }
 
 // ── Category nav ──────────────────────────────────────────────────────────────
-
 function CategoryNav({ currentScreenId, onJumpToCategory, onJumpToScreen, onGoHome }) {
   const activeCategory = CATEGORIES.find((cat) =>
     cat.screens.some((s) => s.id === currentScreenId)
   );
-
-  const [openCategory, setOpenCategory] = useState(activeCategory?.id || null);
-
-  const toggleCategory = (categoryId) => {
-    setOpenCategory((prev) => (prev === categoryId ? null : categoryId));
-  };
 
   return (
     <div className="flex-shrink-0 border-b-2 border-gray-200 bg-[#F8F8F6] px-8 pt-2.5 pb-3">
@@ -367,72 +360,49 @@ function CategoryNav({ currentScreenId, onJumpToCategory, onJumpToScreen, onGoHo
             >
               <Home className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
-
             <div className="w-px h-4 bg-gray-300" />
-
-            {CATEGORIES.map((cat, i) => {
-              const isActive = cat.id === activeCategory?.id;
-
-              return (
-                <span key={cat.id} className="flex items-center gap-4">
-                  <button
-                    onClick={() => {
-                      onJumpToCategory(cat.id);
-                      setOpenCategory(cat.id);
-                    }}
-                    className={`text-sm transition-colors ${
-                      isActive ? "text-black font-semibold" : "text-gray-400 hover:text-gray-600"
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-
-                  {i < CATEGORIES.length - 1 && (
-                    <ArrowRight
-                      className="w-3 h-3 text-gray-300 flex-shrink-0"
-                      strokeWidth={1.5}
-                    />
-                  )}
-                </span>
-              );
-            })}
+            {CATEGORIES.map((cat, i) => (
+              <span key={cat.id} className="flex items-center gap-4">
+                <button
+                  onClick={() => onJumpToCategory(cat.id)}
+                  className={`text-sm transition-colors ${
+                    cat.id === activeCategory?.id ? "text-black font-semibold" : "text-gray-400 hover:text-gray-600"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+                {i < CATEGORIES.length - 1 && (
+                  <ArrowRight className="w-3 h-3 text-gray-300 flex-shrink-0" strokeWidth={1.5} />
+                )}
+              </span>
+            ))}
           </div>
-
           <PageInfoBadge screenId={currentScreenId} />
         </div>
 
         <AnimatePresence mode="wait">
-          {openCategory && (
+          {activeCategory && (
             <motion.div
-              key={openCategory}
+              key={activeCategory.id}
               initial={{ opacity: 0, y: -2 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -2 }}
               transition={{ duration: 0.15 }}
               className="mt-1.5 pl-12 flex items-center flex-wrap gap-x-3 gap-y-1"
             >
-              {CATEGORIES.find((cat) => cat.id === openCategory)?.screens.map((screen, index, arr) => {
-                const isCurrent = screen.id === currentScreenId;
-
-                return (
-                  <span key={screen.id} className="flex items-center gap-3">
-                    <button
-                      onClick={() => onJumpToScreen(screen.id)}
-                      className={`text-xs transition-colors ${
-                        isCurrent
-                          ? "text-gray-700"
-                          : "text-gray-400 hover:text-gray-600"
-                      }`}
-                    >
-                      {screen.label}
-                    </button>
-
-                    {index < arr.length - 1 && (
-                      <span className="text-gray-300 text-[10px]">·</span>
-                    )}
-                  </span>
-                );
-              })}
+              {activeCategory.screens.map((screen, index, arr) => (
+                <span key={screen.id} className="flex items-center gap-3">
+                  <button
+                    onClick={() => onJumpToScreen(screen.id)}
+                    className={`text-xs transition-colors ${
+                      screen.id === currentScreenId ? "text-gray-700" : "text-gray-400 hover:text-gray-600"
+                    }`}
+                  >
+                    {screen.label}
+                  </button>
+                  {index < arr.length - 1 && <span className="text-gray-300 text-[10px]">·</span>}
+                </span>
+              ))}
             </motion.div>
           )}
         </AnimatePresence>
@@ -1174,7 +1144,7 @@ function UnifiedView() {
 
           {/* ── Title ── */}
           <div>
-            <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>The Unified View</h1>
+            <h1 className="text-5xl tracking-tight" style={{ fontFamily: "Space Grotesk, sans-serif" }}>Unified View</h1>
             <p className="text-sm text-gray-400 mt-1">Jane's financial situation</p>
           </div>
 
@@ -1378,7 +1348,7 @@ function UnifiedView() {
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div>
                   <div className="text-xs uppercase tracking-wider text-gray-400 mb-1">Prototype notice</div>
-                  <h3 className="text-xl font-semibold text-gray-900">New application is not active</h3>
+                  <h3 className="text-xl font-semibold text-gray-900">Not active</h3>
                 </div>
                 <button onClick={() => setShowApplicationModal(false)} className="text-gray-400 hover:text-gray-600">
                   <X className="w-4 h-4" strokeWidth={2} />
